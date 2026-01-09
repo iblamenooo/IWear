@@ -1,43 +1,110 @@
-
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
+    private static ArrayList<ClothingItem> inventory = new ArrayList<>();
+    private static ArrayList<Customer> customers = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("=== Clothing Store Management System ===\n");
-        ClothingItem item1 = new ClothingItem(1, "Jacket", "L", 45000, "Nika");
-        ClothingItem item2 = new ClothingItem(2, "T-Shirt", "M", 12000, "Abibas");
-        ClothingItem item3 = new ClothingItem(3, "Jeans", "XXXL", 15000, "Bershka");
+        inventory.add(new ClothingItem("Hoodie", 15000.0, "L", 10));
+        customers.add(new Customer(1001, "HarryGoat", "+777567676767", 67));
 
-        Customer customer1 = new Customer(101, "HarryGoat", "L", 80);
-        Customer customer2 = new Customer(102, "Franklin", "M", 150);
-        Order order1 = new Order(1001,"HarryGoat",0,"Pending");
+        boolean running = true;
+        while (running) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println("--- CLOTHING ITEMS ---");
-        System.out.println(item1);
-        System.out.println(item2);
-        System.out.println(item3);
+            switch (choice) {
+                case 1: addClothingItem(); break;
+                case 2: viewInventory(); break;
+                case 3: addCustomer(); break;
+                case 4: viewCustomers(); break;
+                case 0:
+                    System.out.println("\nGoodbye!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("\nInvalid choice!");
+            }
 
-        System.out.println("\n--- CUSTOMERS ---");
-        System.out.println(customer1);
-        System.out.println(customer2);
+            if (running) {
+                System.out.println("\nPress Enter to continue...");
+                scanner.nextLine();
+            }
+        }
+        scanner.close();
+    }
 
-        System.out.println("\n--- ORDER ---");
-        System.out.println(order1);
+    private static void displayMenu() {
+        System.out.println("\n========================================");
+        System.out.println("   IWEAR CLOTHING STORE SYSTEM");
+        System.out.println("========================================");
+        System.out.println("1. Add Clothing Item");
+        System.out.println("2. View All Items");
+        System.out.println("3. Add Customer");
+        System.out.println("4. View All Customers");
+        System.out.println("0. Exit");
+        System.out.print("Enter choice: ");
+    }
 
-        System.out.println("\n--- TESTING METHODS ---");
+    private static void addClothingItem() {
+        System.out.println("\n--- ADD CLOTHING ITEM ---");
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
 
-        item1.applyDiscount(10);
-        System.out.println("After discount: "+item1);
-        System.out.println("Is item1 premium? "+item1.isPremium());
-        customer1.addPoints(30);
-        System.out.println("Customer1 VIP: "+customer1.isVIP());
+        System.out.print("Enter price (KZT): ");
+        double price = scanner.nextDouble();
+        scanner.nextLine();
 
-        order1.addToTotal(item1.getPrice());
-        order1.addToTotal(item2.getPrice());
-        order1.completeOrder();
+        System.out.print("Enter size: ");
+        String size = scanner.nextLine();
 
-        System.out.println("\nUpdated order:");
-        System.out.println(order1);
-        System.out.println("\n=== Program Complete ===");
+        System.out.print("Enter stock: ");
+        int stock = scanner.nextInt();
+        scanner.nextLine();
+
+        ClothingItem item = new ClothingItem(name, price, size, stock);
+        inventory.add(item);
+        System.out.println("\n✅ Item added successfully!");
+    }
+
+    private static void viewInventory() {
+        System.out.println("\n--- ALL CLOTHING ITEMS ---");
+        if (inventory.isEmpty()) {
+            System.out.println("No items found.");
+            return;
+        }
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println((i + 1) + ". " + inventory.get(i));
+        }
+    }
+
+    private static void addCustomer() {
+        System.out.print("Enter ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Phone: ");
+        String phone = scanner.nextLine();
+        System.out.print("Enter Points: ");
+        int points = scanner.nextInt();
+        scanner.nextLine();
+
+        customers.add(new Customer(id, name, phone, points));
+        System.out.println("✅ Customer added!");
+    }
+
+    private static void viewCustomers() {
+        System.out.println("\n--- ALL CUSTOMERS ---");
+        if (customers.isEmpty()) {
+            System.out.println("No customers found.");
+            return;
+        }
+        for (Customer c : customers) {
+            System.out.println(c);
+        }
     }
 }

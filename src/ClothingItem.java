@@ -1,82 +1,50 @@
 public class ClothingItem {
-
-    private int itemId;
     private String name;
-    private String size;
     private double price;
-    private String brand;
+    private String size;
+    private int stock;
 
-    public ClothingItem(int itemId, String name, String size, double price, String brand) {
-        this.itemId = itemId;
-        this.name = name;
+    public ClothingItem(String name, double price, String size, int stock) {
+        setName(name);
+        setPrice(price);
         this.size = size;
-        this.price = price;
-        this.brand = brand;
-    }
-
-    public ClothingItem() {
-        this.itemId = 0;
-        this.name = "Unknown";
-        this.size = "M";
-        this.price = 0.0;
-        this.brand = "No Brand";
-    }
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+        setStock(stock);
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            this.name = "Unknown Item";
+            System.out.println("Warning: Name cannot be empty!");
+        }
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            this.price = 0;
+            System.out.println("Warning: Price cannot be negative! Setting to 0.");
+        }
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setStock(int stock) {
+        if (stock >= 0) {
+            this.stock = stock;
+        } else {
+            this.stock = 0;
+            System.out.println("Warning: Stock cannot be negative!");
+        }
     }
 
-    public void applyDiscount(double percent) {
-        price = price * (1 - percent / 100);
-    }
-
-    public boolean isPremium() {
-        return price > 30000;
-    }
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public String getSize() { return size; }
+    public int getStock() { return stock; }
 
     @Override
     public String toString() {
-        return "ClothingItem{id=" + itemId +
-                ", name='" + name + '\'' +
-                ", size='" + size + '\'' +
-                ", price=" + price +
-                ", brand='" + brand + '\'' +
-                '}';
+        return "Item: " + name + " | Price: " + price + " KZT | Size: " + size + " | Stock: " + stock;
     }
 }

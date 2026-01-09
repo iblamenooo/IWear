@@ -1,58 +1,32 @@
 public class Order {
     private int orderId;
     private String customerName;
-    private double total;
+    private double totalAmount;
     private String status;
 
-    public Order(int orderId, String customerName, double total, String status) {
-        this.orderId=orderId;
-        this.customerName=customerName;
-        this.total=total;
-        this.status=status;
+    public Order(int orderId, String customerName, double totalAmount, String status) {
+        this.orderId = orderId;
+        this.customerName = customerName;
+        setTotalAmount(totalAmount);
+        this.status = status;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId=orderId;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName=customerName;
-    }
-
-    public void setTotal(double total) {
-        this.total=total;
-    }
-
-    public void setStatus(String status) {
-        this.status=status;
-    }
-
-    public void addToTotal(double amount) {
-        total+=amount;
+    public void setTotalAmount(double totalAmount) {
+        if (totalAmount >= 0) {
+            this.totalAmount = totalAmount;
+        } else {
+            this.totalAmount = 0;
+            System.out.println("Warning: Order amount cannot be negative! [cite: 19]");
+        }
     }
 
     public void completeOrder() {
-        status="Completed";
+        this.status = "Completed";
     }
 
     @Override
     public String toString() {
-        return "Order{id="+orderId+",customer='"+customerName+'\''+",total="+total+",status='"+status+'\''+'}';
+        return "Order #" + orderId + " | Customer: " + customerName +
+                " | Total: " + totalAmount + " KZT | Status: " + status;
     }
 }

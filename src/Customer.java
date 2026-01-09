@@ -1,70 +1,41 @@
 public class Customer {
-
     private int customerId;
     private String name;
-    private String preferredSize;
-    private int points;
+    private String phoneNumber;
+    private int loyaltyPoints;
 
-    public Customer(int customerId, String name, String preferredSize, int points) {
+    public Customer(int customerId, String name, String phoneNumber, int loyaltyPoints) {
         this.customerId = customerId;
-        this.name = name;
-        this.preferredSize = preferredSize;
-        this.points = points;
-    }
-
-    public Customer() {
-        this.customerId = 0;
-        this.name = "Guest";
-        this.preferredSize = "M";
-        this.points = 0;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPreferredSize() {
-        return preferredSize;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+        setName(name);
+        this.phoneNumber = phoneNumber;
+        setLoyaltyPoints(loyaltyPoints);
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            this.name = "Unknown Customer";
+            System.out.println("Warning: Name cannot be empty! [cite: 59]");
+        }
     }
 
-    public void setPreferredSize(String preferredSize) {
-        this.preferredSize = preferredSize;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public void addPoints(int amount) {
-        points += amount;
+    public void setLoyaltyPoints(int loyaltyPoints) {
+        if (loyaltyPoints >= 0) {
+            this.loyaltyPoints = loyaltyPoints;
+        } else {
+            this.loyaltyPoints = 0;
+            System.out.println("Warning: Loyalty points cannot be negative!");
+        }
     }
 
     public boolean isVIP() {
-        return points >= 100;
+        return loyaltyPoints > 100;
     }
 
     @Override
     public String toString() {
-        return "Customer{id=" + customerId +
-                ", name='" + name + '\'' +
-                ", preferredSize='" + preferredSize + '\'' +
-                ", points=" + points +
-                '}';
+        return "ID: " + customerId + " | Name: " + name + " | Phone: " + phoneNumber +
+                " | Points: " + loyaltyPoints + (isVIP() ? " (VIP 🌟)" : "");
     }
 }
