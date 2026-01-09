@@ -1,11 +1,11 @@
 public class ClothingItem {
-    private String name;
-    private double price;
-    private String size;
-    private int stock;
+    protected String name; // protected allows child access [cite: 2012]
+    protected double price;
+    protected String size;
+    protected int stock;
 
     public ClothingItem(String name, double price, String size, int stock) {
-        setName(name);
+        setName(name); // Use setters for validation [cite: 1760]
         setPrice(price);
         this.size = size;
         setStock(stock);
@@ -16,7 +16,6 @@ public class ClothingItem {
             this.name = name;
         } else {
             this.name = "Unknown Item";
-            System.out.println("Warning: Name cannot be empty!");
         }
     }
 
@@ -25,26 +24,21 @@ public class ClothingItem {
             this.price = price;
         } else {
             this.price = 0;
-            System.out.println("Warning: Price cannot be negative! Setting to 0.");
         }
     }
 
     public void setStock(int stock) {
-        if (stock >= 0) {
-            this.stock = stock;
-        } else {
-            this.stock = 0;
-            System.out.println("Warning: Stock cannot be negative!");
-        }
+        if (stock >= 0) this.stock = stock;
+        else this.stock = 0;
     }
 
-    public String getName() { return name; }
-    public double getPrice() { return price; }
-    public String getSize() { return size; }
-    public int getStock() { return stock; }
+    // This method will be overridden (Polymorphism) [cite: 2012]
+    public void describeItem() {
+        System.out.println("Standard clothing item: " + name);
+    }
 
     @Override
     public String toString() {
-        return "Item: " + name + " | Price: " + price + " KZT | Size: " + size + " | Stock: " + stock;
+        return "Item: " + name + " | Price: " + price + " KZT";
     }
 }
