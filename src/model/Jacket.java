@@ -3,7 +3,6 @@ package model;
 import interfaces.Wearable;
 
 public class Jacket extends Wear implements Wearable {
-
     private String material;
     private boolean hooded;
 
@@ -14,25 +13,21 @@ public class Jacket extends Wear implements Wearable {
     }
 
     @Override
-    public String getType() {
-        return "Jacket";
-    }
+    public String getType() { return "JACKET"; }
 
     @Override
     public void wear() {
-        System.out.println("Wearing a " + material + " jacket" +
-                (hooded ? " with a hood." : "."));
+        System.out.println("Wearing a " + material + " jacket" + (hooded ? " with a hood." : "."));
     }
 
     @Override
-    public String getMaterial() {
-        return material;
-    }
+    public String getMaterial() { return material; }
+
+    public boolean isHooded() { return hooded; }
 
     public void setMaterial(String material) {
-        if (material == null || material.trim().isEmpty()) {
+        if (material == null || material.trim().isEmpty())
             throw new IllegalArgumentException("Material cannot be empty");
-        }
         this.material = material;
     }
 
@@ -40,3 +35,4 @@ public class Jacket extends Wear implements Wearable {
         this.hooded = hooded;
     }
 }
+
